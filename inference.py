@@ -47,7 +47,14 @@ class MultiTaskModel(nn.Module):
 # Load Everything
 # ------------------------------
 
-scaler = joblib.load("scaler.pkl")
+from sklearn.preprocessing import StandardScaler
+import numpy as np
+
+scaler = StandardScaler()
+
+# Simple fallback (no file needed)
+scaler.mean_ = np.zeros(5)
+scaler.scale_ = np.ones(5)
 
 with open("goals_config.json", "r") as f:
     selected_goal_names = json.load(f)
