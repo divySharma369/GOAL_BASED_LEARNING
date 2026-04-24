@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 import json
-import joblib
 import numpy as np
 
 # ------------------------------
@@ -44,26 +43,17 @@ class MultiTaskModel(nn.Module):
         return outputs
 
 # ------------------------------
-# Load Everything
+# Load Models
 # ------------------------------
-
-from sklearn.preprocessing import StandardScaler
-import numpy as np
-
-scaler = StandardScaler()
-
-# Simple fallback (no file needed)
-scaler.mean_ = np.zeros(5)
-scaler.scale_ = np.ones(5)
 
 with open("goals_config.json", "r") as f:
     selected_goal_names = json.load(f)
 
 encoder = Encoder()
-encoder.load_state_dict(torch.load("encoder.pth"))
+encoder.load_state_dict(torch.load("encoder.pth", map_location=torch.device('cpu')))
 
 model = MultiTaskModel(encoder)
-model.load_state_dict(torch.load("multitask_model.pth"))
+model.load_state_dict(torch.load("multitask_model.pth", map_location=torch.device('cpu')))
 
 model.eval()
 
@@ -98,7 +88,8 @@ def gating_function(x_input):
 
 def predict(input_list):
     x = np.array(input_list).reshape(1, -1)
-    x = scaler.transform(x)
+    
+    # NO SCALING (safe fallback)
     x_tensor = torch.tensor(x, dtype=torch.float32)
     
     outputs = model(x_tensor)
@@ -119,9 +110,9 @@ def predict(input_list):
 
 
 # ------------------------------
-# TEST RUN (IMPORTANT)
+# TEST
 # ------------------------------
 
 if __name__ == "__main__":
-    sample = [0, 1, 2, 1, 0]  # example input
+    sample = [0, 1, 2, 1, 0]
     print(predict(sample))
