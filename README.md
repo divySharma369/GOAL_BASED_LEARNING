@@ -2,7 +2,6 @@
 
 ## Vision
 The Goal-Driven Learning (GDL) architecture represents a shift from fixed-task artificial intelligence to autonomous systems capable of discovery, prioritization, and execution. Unlike traditional models that rely on human-defined objectives, GDL aims to build systems that independently identify useful goals, learn the necessary representations to achieve them, and dynamically select the most relevant objectives to solve in any given context.
-
 ## Core Philosophy: Beyond Static Inference
 Traditional AI systems are typically constrained by static objectives defined during the training phase. GDL introduces a "Goal Discovery" layer that operates ahead of execution, ensuring the system not only solves problems but also evaluates which problems are worth solving. This is a foundational step toward truly autonomous learning systems.
 
@@ -78,4 +77,4 @@ The current prototype focuses on the validation of the Gating Mechanism and late
 *   Integrating Continual Learning systems to allow the model to evolve its goal space over time without catastrophic forgetting.
 
 ## Summary
-An AI system that learns not just how to solve problems, but which problems are worth solving. This architecture provides the blueprint for a learning paradigm that moves from tool-like AI to autonomous, goal-oriented intelligence.
+An AI system that learns not just how to solve problems, but which problems are worth solving. This architecture provides the blueprint for a learning paradigm that moves from tool-like AI to autonomous, goal-oriented intelligence....
